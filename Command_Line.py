@@ -4,7 +4,7 @@ import requests
 parser = argparse.ArgumentParser('Process HTTP')
 
 
-parser.add_argument('-l', '--url', type=str, help= 'enter url')
+parser.add_argument('-l', '--url', required=True, type=str, help= 'enter url')
 
 args, unknown = parser.parse_known_args()
 
