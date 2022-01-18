@@ -92,16 +92,24 @@ def read_file(file):
 def incorrect_keys(data):
     try:
         for x in data:
-            test = data[x]['x']
+            return int(data[x]['x'])
     except KeyError:
         print("Missing X coordinate key in file. Aborting")
         sys.exit(1)
+    except ValueError:
+        print("Only Numeric Values can be entered as coordinates. Aborting")
+        sys.exit(1)
     try:
         for x in data:
-            test = data[x]['y']
+            return int(data[x]['y'])
     except KeyError:
         print("Missing Y coordinate key in file. Aborting")
         sys.exit(1)
+    except ValueError:
+        print("Only Numeric Values can be entered as coordinates. Aborting")
+        sys.exit(1)
+
+
 
 parser = argparse.ArgumentParser('Input Coordinate File')
 parser.add_argument('-r', '--read', required=True, type=str, help= 'enter file to be read')
@@ -121,8 +129,8 @@ sorted_y_coor_list = bubblesort(unpack(data, Y_KEY))
 #create the square
 Square = create_Square(sorted_x_coor_list,sorted_y_coor_list)
 print("\ncoordinates inputed: ")
-for z in data:
-    print(data[z])
+for coordinates in data:
+    print(data[coordinates])
 
 print("\nThe smallest square that will fit your coordinates has the following coordinates: ")
 for key, value in Square.items():
