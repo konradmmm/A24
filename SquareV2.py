@@ -71,12 +71,15 @@ def create_Square(x_coor, y_coor):
     }
     return square_corners
 #error handling if file does not exist
-def read_file(file):
+def test_file(file):
 
     try:
         f = open(file)
     except FileNotFoundError:
         print(f"File {file} not found.  Aborting")
+        sys.exit(1)
+    except ValueError:
+        print("file")
         sys.exit(1)
 
     if os.stat(file).st_size == 0:
@@ -90,9 +93,14 @@ def read_file(file):
         return f
 #error handling if keys are incorrect
 def incorrect_keys(data):
+    for value in data.values():
+        for x in value:
+            if x != 'x' and x != 'y':
+                print(f"Error Unknown Value {x} is being inputed. Aborting")
+                sys.exit(1)
     try:
         for x in data:
-            return int(data[x]['x'])
+            test = int(data[x]['x'])
     except KeyError:
         print("Missing X coordinate key in file. Aborting")
         sys.exit(1)
@@ -101,7 +109,7 @@ def incorrect_keys(data):
         sys.exit(1)
     try:
         for x in data:
-            return int(data[x]['y'])
+            test = int(data[x]['y'])
     except KeyError:
         print("Missing Y coordinate key in file. Aborting")
         sys.exit(1)
@@ -111,15 +119,18 @@ def incorrect_keys(data):
 
 
 
+
 parser = argparse.ArgumentParser('Input Coordinate File')
 parser.add_argument('-r', '--read', required=True, type=str, help= 'enter file to be read')
 args, unknown = parser.parse_known_args()
 
 #read json file
 file = args.read
-
-
-data = json.load(read_file(file))
+try:
+    data = json.load(test_file(file))
+except json.decoder.JSONDecodeError:
+    print("JSON formatting or null value error aborting")
+    sys.exit(1)
 incorrect_keys(data)
 
 #Sorted list of x and y coordinates to figure out best points for square corners
