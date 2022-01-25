@@ -59,8 +59,8 @@ def decompress_string(encoded_string, key_list):
 
 
 huff_string = parse_input()
-compressed_string, keys = compress_string(Huff_string)
-compare_strings(Huff_string, compressed_string)
+compressed_string, keys = compress_string(huff_string)
+compare_strings(huff_string, compressed_string)
 decompress_string(compressed_string,keys)
 
 
