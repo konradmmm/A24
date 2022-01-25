@@ -6,7 +6,7 @@ import argparse
 def parse_input():
     check_var =""
     parser = argparse.ArgumentParser('Create Huffman code')
-    parser.add_argument('-t', '--test', type=str, help='enter a string and see if Huffman coding would be shorter')
+    parser.add_argument('-t', '--test', type=str,required=True, help='enter a string and see if Huffman coding would be shorter')
     args, unknown = parser.parse_known_args()
     return args.test
 
