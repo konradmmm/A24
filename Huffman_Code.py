@@ -58,7 +58,7 @@ def decompress_string(encoded_string, key_list):
             print(f"\nString decoded back to original form: \n{decoded_string}")
 
 
-Huff_string = parse_input()
+huff_string = parse_input()
 compressed_string, keys = compress_string(Huff_string)
 compare_strings(Huff_string, compressed_string)
 decompress_string(compressed_string,keys)
