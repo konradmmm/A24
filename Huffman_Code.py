@@ -1,14 +1,21 @@
 import argparse
+import sys
 #this code takes a string as an argument and returns it as an encoded string that shows how many times a character
 #repeats itself. It will tell you whether or not the compression was more efficient than the original code
 #it finishes by decompressing the compressed string using a list of keys that were generated during compression
+
+
 
 def parse_input():
     check_var =""
     parser = argparse.ArgumentParser('Create Huffman code')
     parser.add_argument('-t', '--test', type=str,required=True, help='enter a string and see if Huffman coding would be shorter')
     args, unknown = parser.parse_known_args()
-    return args.test
+    if args.test == "":
+        print("You cannot enter an empty string. Aborting")
+        sys.exit(1)
+    else:
+        return args.test
 
 def compress_string(string):
     compressed_string = string[0]
@@ -28,7 +35,6 @@ def compress_string(string):
     compressed_string += str(repeat_counter)
     key_list.append(len(str(repeat_counter)) + key_list[key_counter] + 1)
     print(f"compressed string: {compressed_string}")
-    key_list.append(0)
     return compressed_string, key_list
 def compare_strings(original_string, compressed_string):
     oglen = len(original_string)
@@ -46,16 +52,13 @@ def decompress_string(encoded_string, key_list):
     key_index = 1
     decoded_string = ""
     indexer = ""
-    for amount in range(len(key_list) - 1):
-        if key_list[key_index] != 0:
-            for num in range(key_list[key_index - 1], key_list[key_index] - 1):
-                indexer += str(encoded_string[num + 1])
-            for x in range(int(indexer)):
-                decoded_string += str(encoded_string[key_list[key_index - 1]])
-            indexer = ""
+    for amount in key_list[:-1]:
+        indexer =  encoded_string[amount+1:key_list[key_index]]
+        if key_index != len(key_list)-1:
             key_index += 1
-        else:
-            print(f"\nString decoded back to original form: \n{decoded_string}")
+        character = encoded_string[amount]
+        decoded_string += int(indexer) * character
+    print(decoded_string)
 
 
 huff_string = parse_input()
