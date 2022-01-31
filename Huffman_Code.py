@@ -65,8 +65,7 @@ huff_string = parse_input()
 compressed_string, keys = compress_string(huff_string)
 compare_strings(huff_string, compressed_string)
 decompress_string(compressed_string,keys)
-
-
+print(" hello")
 
 
 
