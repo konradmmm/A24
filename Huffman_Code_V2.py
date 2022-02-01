@@ -19,17 +19,21 @@ def parse_input():
 
 def compress_string(string):
     compressed_string = string[0]
+    compressed_string_nodel = string[0]
     repeat_counter = 1
     for letters in range(len(string)):
         if letters > 0:
             if string[letters-1] == string[letters]:
                 repeat_counter+=1
             else:
+                compressed_string_nodel += str(repeat_counter)
                 compressed_string += str(repeat_counter) + "/0"
                 repeat_counter = 1
+                compressed_string_nodel += string[letters]
                 compressed_string += string[letters]
     compressed_string += str(repeat_counter) + "/0"
-    print(f"\nthe string compressed is: {compressed_string}")
+    compressed_string_nodel += str(repeat_counter)
+    print(f"\nthe string compressed is: {compressed_string_nodel}")
     return compressed_string
 def decompress_string(string):
     decoded_string = ""
@@ -52,6 +56,7 @@ def compare_strings(original_string, compressed_string):
     else:
         print("\nLengths are the same no advantage of compressed or uncompressed")
     print(f"original string len: {oglen} compressed string length: {complen}")
+
 
 
 
